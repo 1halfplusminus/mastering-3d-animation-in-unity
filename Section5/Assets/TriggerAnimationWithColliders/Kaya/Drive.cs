@@ -14,7 +14,7 @@ public class Drive : MonoBehaviour
         {
             anim.SetBool("isDead", true);
             enabled = false;
-            GetComponent<Rigidbody>().constraints |= RigidbodyConstraints.FreezeAll;
+            GetComponent<Rigidbody>().freezeRotation = true;
         }
     }
     void Start()
