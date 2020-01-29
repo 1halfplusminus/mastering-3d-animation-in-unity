@@ -36,8 +36,8 @@ public class SitOn : MonoBehaviour
             animator.SetBool("isWalking", false);
             animator.SetBool("isSitting", true);
             character.transform.rotation = Quaternion.LookRotation(new Vector3(anchor.transform.forward.x, 0.0f, anchor.transform.forward.z));
-            character.transform.position = new Vector3(anchor.transform.position.x, character.transform.position.y, anchor.transform.position.z);
-            character.GetComponent<Rigidbody>().freezeRotation = true;
+            character.transform.position = new Vector3(anchor.transform.position.x, anchor.transform.position.y, anchor.transform.position.z);
+            character.GetComponent<Rigidbody>().isKinematic = true;
             isWalkingTowards = false;
             sittingOn = true;
         }
