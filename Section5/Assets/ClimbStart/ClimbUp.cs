@@ -24,17 +24,6 @@ public class ClimbUp : MonoBehaviour
         GetComponent<Rigidbody>().isKinematic = true;
         isHanging = true;
         animRootTarget = rootTarget;
-
-        /*  Plane rootPlane = new Plane(animRootTarget.position, animRootTarget.position + animRootTarget.right, animRootTarget.position + animRootTarget.up);
-
-         Vector3 adjustedPos = new Vector3(transform.position.x, animRootTarget.position.y, transform.position.z);
-
-         Ray ray = new Ray(adjustedPos, animRootTarget.forward);
-         float rayDistance;
-         if (rootPlane.Raycast(ray, out rayDistance))
-         {
-             animRootTarget.position = ray.GetPoint(rayDistance);
-         } */
     }
     void AnimLerp()
     {
