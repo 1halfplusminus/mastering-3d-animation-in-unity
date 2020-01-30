@@ -9,13 +9,20 @@ public class ClimbUp : MonoBehaviour
     float lerpSpeed = 5.0F;
     Animator anim;
     bool isHanging = false;
+    bool isShimmy = false;
     Transform animRootTarget;
 
+    public void EndShimming()
+    {
+        Debug.Log("EndShimming");
+        isShimmy = false;
+    }
     public void EndClimb()
     {
         Debug.Log("EndClimb");
         GetComponent<Rigidbody>().isKinematic = false;
         isHanging = false;
+        animRootTarget = null;
     }
     public void GrabEdge(Transform rootTarget)
     {
@@ -27,7 +34,7 @@ public class ClimbUp : MonoBehaviour
     }
     void AnimLerp()
     {
-        if (!animRootTarget) return;
+        if (!animRootTarget || isShimmy) return;
 
         if (Vector3.Distance(this.transform.position, animRootTarget.position) > 0.1f)
         {
@@ -79,12 +86,43 @@ public class ClimbUp : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            anim.SetTrigger("isJumping");
+            if (isHanging)
+            {
+                anim.SetTrigger("drop");
+                GetComponent<Rigidbody>().isKinematic = false;
+            }
+            else
+            {
+                anim.SetTrigger("isJumping");
+            }
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            anim.SetTrigger("isClimbing");
-            animRootTarget = null;
+            if (isHanging)
+            {
+                anim.SetTrigger("isClimbing");
+                animRootTarget = null;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (isHanging)
+            {
+                anim.SetTrigger("shimmyLeft");
+                animRootTarget = null;
+                isShimmy = true;
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            if (isHanging)
+            {
+                anim.SetTrigger("shimmyRight");
+                animRootTarget = null;
+                isShimmy = true;
+            }
         }
 
     }
